@@ -130,7 +130,7 @@ function displayData(data) {
         article_plus.appendChild(amount_plus);
         container_operation.appendChild(article_plus);
         if (dat.type === "invoice") {
-            article_plus.classList.add("amount_plus");
+            article_plus.classList.add("plus");
         }
         else {
             article_plus.classList.add("amount_payed");
@@ -245,9 +245,8 @@ let month = months[data.getMonth()];
 let day = data.getDate();
 //in the first day of the month, clean everything in the database? 
 let year = data.getFullYear();
-//function start as soon the page is load, window onload? or like this is ok?
 (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.getBills)();
-/*****************************how many days are in this month$+**************************************/
+/*****************************how many days are in this month**************************************/
 if (thirty_one.find((x) => x === month)) {
     const days_left = 31 - day;
     days_left_to_go.innerHTML = days_left.toString();
@@ -264,24 +263,25 @@ data_dom.innerHTML = day + " " + month + " " + year;
 /*********************************formulaire********************************************************/
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    let bank_value = counter_sold.textContent;
+    //saldo before any operation
+    let bank_value = parseInt(counter_sold.innerHTML);
     if (type.value === "payment") {
-        //wartosc wyplaty
+        //value of the payment
         let reduce_value = parseInt(amount.value);
-        let roznica = bank_value - reduce_value;
-        counter_sold.innerText = roznica;
-        const payement_operation = new _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__.InvoicePayment(client.value, details.value, parseInt(amount.value), type.value, roznica);
-        /*payment_operation(payement_operation);*/
+        //new bank value
+        let bank_value_update = bank_value - reduce_value;
+        //push to DOM new bank value
+        counter_sold.innerText = bank_value_update.toString();
+        const payement_operation = new _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__.InvoicePayment(client.value, details.value, parseInt(amount.value), type.value, bank_value_update);
         (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.displayData)([payement_operation]);
         (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.sendBills)(payement_operation);
     }
     else {
-        //wartosc wplaty
+        //value of the income
         let increase_value = parseInt(amount.value);
-        console.log("to jest bank " + bank_value);
         //wartosc obecna konta
         let plus = counter_sold.textContent;
-        console.log(plus);
+        console.log(bank_value);
         let counter_upadte = parseInt(plus) + increase_value;
         const money_operation = new _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__.InvoicePayment(client.value, details.value, parseInt(amount.value), type.value, counter_upadte);
         (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.sendBills)(money_operation);

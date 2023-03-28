@@ -46,7 +46,7 @@ export function displayData(data: InvoicePayment[]) {
     article_plus.appendChild(amount_plus);
     container_operation.appendChild(article_plus);
     if (dat.type === "invoice") {
-      article_plus.classList.add("amount_plus");
+      article_plus.classList.add("plus");
     } else {
       article_plus.classList.add("amount_payed");
     }

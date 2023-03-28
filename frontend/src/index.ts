@@ -38,14 +38,13 @@ const thirty_one: string[] = [
 ];
 const thirty: string[] = ["April", "June", "September", "November"];
 
-const data: any = new Date();
+const data = new Date();
 let month: string = months[data.getMonth()];
-let day: any = data.getDate();
+let day = data.getDate();
 //in the first day of the month, clean everything in the database? 
-let year: any = data.getFullYear();
-//function start as soon the page is load, window onload? or like this is ok?
+let year = data.getFullYear();
 getBills();
-/*****************************how many days are in this month$+**************************************/
+/*****************************how many days are in this month**************************************/
 if (thirty_one.find((x) => x === month)) {
   const days_left: number = 31 - day;
   days_left_to_go.innerHTML = days_left.toString();
@@ -60,23 +59,24 @@ data_dom.innerHTML = day + " " + month + " " + year;
 /*********************************formulaire********************************************************/
 form.addEventListener("submit", (e: Event) => {
   e.preventDefault();
-  let bank_value:any= counter_sold.textContent;
+  //saldo before any operation
+  let bank_value:number= parseInt(counter_sold.innerHTML);
   if(type.value === "payment"){
-    //wartosc wyplaty
-    let reduce_value = parseInt(amount.value);
-    let roznica:any = bank_value-reduce_value;
-    counter_sold.innerText = roznica;
-    const payement_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value), type.value,roznica)
-    /*payment_operation(payement_operation);*/
+    //value of the payment
+    let reduce_value:number= parseInt(amount.value);
+    //new bank value
+    let bank_value_update:number = bank_value-reduce_value;
+    //push to DOM new bank value
+    counter_sold.innerText = bank_value_update.toString();
+    const payement_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value), type.value,bank_value_update)
     displayData([payement_operation])
     sendBills(payement_operation)
   }else{
-    //wartosc wplaty
+    //value of the income
     let increase_value = parseInt(amount.value);
-    console.log("to jest bank " +bank_value)
     //wartosc obecna konta
     let plus:any= counter_sold.textContent;
-    console.log(plus)
+    console.log(bank_value)
     let counter_upadte:number = parseInt(plus) + increase_value
     const money_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value),type.value as "invoice", counter_upadte);
     sendBills(money_operation)
