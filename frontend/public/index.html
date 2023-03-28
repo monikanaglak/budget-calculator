@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Wallet</title>
+</head>
+<body>
+    <div class="container">
+      <header>
+          <p class="logo">Walette logo</p>
+          <div class="local-date">
+            <p>Today we are</p>
+            <p class="actual-date"></p>
+          </div>
+          
+          <div class="days">
+            <p>Days left to the next salary</p>
+            <p class="days-left"></p>
+          </div>
+          <div>
+            <p class="money">Money left</p>
+            <div class="euro">
+              <p class="money-left">0</p><span>€</span>
+            </div>
+          </div>
+      </header>
+      <div class="wrapper">
+        <h1>Finance Logger</h1>
+        <main>
+          <article class="informations">
+            <form class="new-item-form">
+                <div class="field">
+                  <label>Type:</label>
+                  <select id="type">
+                    <option value="invoice">Income</option>
+                    <option value="payment">Payment</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>To / From:</label>
+                  <input type="text" id="tofrom">
+                </div>   
+                <div class="field">
+                  <label>Details:</label>
+                  <input type="text" id="details">
+                </div>
+                <div class="field">
+                  <label>Amount (E):</label>
+                  <input type="number" id="amount">
+                </div>
+                <button class="btn">Add</button>
+            </form>
+          </article>
+          <ul class="item-list"></ul>
+        </main>
+      </div>
+    <script type = "module" src="bundle.js"></script>
+  </body>
+</html>
