@@ -33,43 +33,6 @@ class InvoicePayment {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "invoice_operation": () => (/* binding */ invoice_operation),
-/* harmony export */   "payment_operation": () => (/* binding */ payment_operation)
-/* harmony export */ });
-function invoice_operation(x) {
-    const container_operation = document.querySelector(".item-list");
-    const article = document.createElement('article');
-    article.classList.add("invoice-article");
-    article.innerHTML = `<h1>${x.client}</h1>`;
-    const details = document.createElement('p');
-    details.classList.add('monika');
-    details.innerHTML = `<p>${x.details}</p>`;
-    article.appendChild(details);
-    const amount = document.createElement('p');
-    amount.classList.add('amount');
-    amount.innerHTML = `<p>${x.amount}</p>`;
-    article.appendChild(amount);
-    container_operation.appendChild(article);
-}
-function payment_operation(x) {
-    const container_operation = document.querySelector(".item-list");
-    const article = document.createElement('article');
-    article.classList.add("payment-article");
-    article.innerHTML = `<h1>${x.client}</h1>`;
-    const amount_payed = document.createElement('p');
-    amount_payed.classList.add('amount_payed');
-    amount_payed.innerHTML = `<p>${x.amount}</p>`;
-    article.appendChild(amount_payed);
-    container_operation.appendChild(article);
-}
-
-
-/***/ }),
-/* 3 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "displayData": () => (/* binding */ displayData),
 /* harmony export */   "getBills": () => (/* binding */ getBills),
 /* harmony export */   "sendBills": () => (/* binding */ sendBills)
@@ -123,17 +86,20 @@ function getBills() {
 function displayData(data) {
     const container_operation = document.querySelector(".item-list");
     for (var dat of data) {
-        const article_plus = document.createElement("article");
-        article_plus.innerHTML = `<h1>${dat.client}</h1>`;
-        const amount_plus = document.createElement("p");
-        amount_plus.innerHTML = `<p>${dat.amount}</p>`;
-        article_plus.appendChild(amount_plus);
-        container_operation.appendChild(article_plus);
+        const article = document.createElement("article");
+        article.innerHTML = `<h1>${dat.client}</h1>`;
+        const amount = document.createElement("p");
+        amount.innerHTML = `<p>${dat.amount}</p>`;
+        article.appendChild(amount);
+        const details = document.createElement("p");
+        details.innerHTML = `<p>${dat.details}</p>`;
+        article.appendChild(details);
+        container_operation.appendChild(article);
         if (dat.type === "invoice") {
-            article_plus.classList.add("plus");
+            article.classList.add("plus");
         }
         else {
-            article_plus.classList.add("amount_payed");
+            article.classList.add("amount_payed");
         }
     }
 }
@@ -201,9 +167,7 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _box__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 //getting DOM Elements
@@ -245,7 +209,7 @@ let month = months[data.getMonth()];
 let day = data.getDate();
 //in the first day of the month, clean everything in the database? 
 let year = data.getFullYear();
-(0,_fetch__WEBPACK_IMPORTED_MODULE_2__.getBills)();
+(0,_fetch__WEBPACK_IMPORTED_MODULE_1__.getBills)();
 /*****************************how many days are in this month**************************************/
 if (thirty_one.find((x) => x === month)) {
     const days_left = 31 - day;
@@ -273,8 +237,8 @@ form.addEventListener("submit", (e) => {
         //push to DOM new bank value
         counter_sold.innerText = bank_value_update.toString();
         const payement_operation = new _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__.InvoicePayment(client.value, details.value, parseInt(amount.value), type.value, bank_value_update);
-        (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.displayData)([payement_operation]);
-        (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.sendBills)(payement_operation);
+        (0,_fetch__WEBPACK_IMPORTED_MODULE_1__.displayData)([payement_operation]);
+        (0,_fetch__WEBPACK_IMPORTED_MODULE_1__.sendBills)(payement_operation);
     }
     else {
         //value of the income
@@ -282,10 +246,11 @@ form.addEventListener("submit", (e) => {
         //wartosc obecna konta
         let plus = counter_sold.textContent;
         console.log(bank_value);
-        let counter_upadte = parseInt(plus) + increase_value;
+        /*let counter_upadte:number = parseInt(plus) + increase_value*/
+        let counter_upadte = bank_value + increase_value;
         const money_operation = new _classes_Invocie__WEBPACK_IMPORTED_MODULE_0__.InvoicePayment(client.value, details.value, parseInt(amount.value), type.value, counter_upadte);
-        (0,_fetch__WEBPACK_IMPORTED_MODULE_2__.sendBills)(money_operation);
-        (0,_box__WEBPACK_IMPORTED_MODULE_1__.invoice_operation)(money_operation);
+        (0,_fetch__WEBPACK_IMPORTED_MODULE_1__.sendBills)(money_operation);
+        (0,_fetch__WEBPACK_IMPORTED_MODULE_1__.displayData)([money_operation]);
         counter_sold.innerText = counter_upadte.toString();
     }
 });

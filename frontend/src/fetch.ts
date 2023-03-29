@@ -39,16 +39,19 @@ export function displayData(data: InvoicePayment[]) {
     ".item-list"
   ) as HTMLElement;
   for (var dat of data) {
-    const article_plus = document.createElement("article");
-    article_plus.innerHTML = `<h1>${dat.client}</h1>`;
-    const amount_plus = document.createElement("p");
-    amount_plus.innerHTML = `<p>${dat.amount}</p>`;
-    article_plus.appendChild(amount_plus);
-    container_operation.appendChild(article_plus);
+    const article = document.createElement("article");
+    article.innerHTML = `<h1>${dat.client}</h1>`;
+    const amount = document.createElement("p");
+    amount.innerHTML = `<p>${dat.amount}</p>`;
+    article.appendChild(amount);
+    const details = document.createElement("p");
+    details.innerHTML = `<p>${dat.details}</p>`;
+    article.appendChild(details);
+    container_operation.appendChild(article);
     if (dat.type === "invoice") {
-      article_plus.classList.add("plus");
+      article.classList.add("plus");
     } else {
-      article_plus.classList.add("amount_payed");
+      article.classList.add("amount_payed");
     }
   }
 }

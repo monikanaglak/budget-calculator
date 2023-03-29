@@ -77,10 +77,11 @@ form.addEventListener("submit", (e: Event) => {
     //wartosc obecna konta
     let plus:any= counter_sold.textContent;
     console.log(bank_value)
-    let counter_upadte:number = parseInt(plus) + increase_value
+    /*let counter_upadte:number = parseInt(plus) + increase_value*/
+    let counter_upadte:number = bank_value + increase_value;
     const money_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value),type.value as "invoice", counter_upadte);
     sendBills(money_operation)
-    invoice_operation(money_operation)
+    displayData([money_operation])
     counter_sold.innerText = counter_upadte.toString();
   }
 });
