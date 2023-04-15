@@ -87,6 +87,7 @@ function displayData(data) {
     const container_operation = document.querySelector(".item-list");
     for (var dat of data) {
         const article = document.createElement("article");
+        article.classList.add("financial-operation");
         article.innerHTML = `<h1>${dat.client}</h1>`;
         const amount = document.createElement("p");
         amount.innerHTML = `<p>${dat.amount}</p>`;

@@ -59,7 +59,8 @@ input {
 .item-list {
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 40vw;
+  flex-wrap: wrap;
   margin: auto;
   gap: 5px;
   margin-top: 10px;
@@ -87,4 +88,7 @@ input {
 .plus {
   background-color: #92ffc0;
   color: white;
+}
+.fincancial-operation{
+  border:2px solid green;
 }

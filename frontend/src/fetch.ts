@@ -40,6 +40,7 @@ export function displayData(data: InvoicePayment[]) {
   ) as HTMLElement;
   for (var dat of data) {
     const article = document.createElement("article");
+    article.classList.add("financial-operation");
     article.innerHTML = `<h1>${dat.client}</h1>`;
     const amount = document.createElement("p");
     amount.innerHTML = `<p>${dat.amount}</p>`;
