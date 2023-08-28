@@ -65,7 +65,7 @@ form.addEventListener("submit", (e: Event) => {
     //value of the payment
     let reduce_value:number= parseInt(amount.value);
     //new bank value
-    let bank_value_update:number = bank_value-reduce_value;
+    let bank_value_update:number = bank_value - reduce_value;
     //push to DOM new bank value
     counter_sold.innerText = bank_value_update.toString();
     const payement_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value), type.value,bank_value_update)
@@ -75,9 +75,8 @@ form.addEventListener("submit", (e: Event) => {
     //value of the income
     let increase_value = parseInt(amount.value);
     //wartosc obecna konta
-    let plus:any= counter_sold.textContent;
-    console.log(bank_value)
-    /*let counter_upadte:number = parseInt(plus) + increase_value*/
+    /*let plus:any= counter_sold.textContent;*/
+    
     let counter_upadte:number = bank_value + increase_value;
     const money_operation = new InvoicePayment(client.value, details.value, parseInt(amount.value),type.value as "invoice", counter_upadte);
     sendBills(money_operation)
